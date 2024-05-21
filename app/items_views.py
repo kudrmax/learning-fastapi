@@ -2,7 +2,7 @@ from _pytest.nodes import Item
 from fastapi import APIRouter, Path
 from typing import Annotated
 
-router = APIRouter(prefix="/items")
+router = APIRouter(prefix="/items", tags=['Items'])
 
 
 @router.get("/admin")
