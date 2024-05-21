@@ -1,11 +1,7 @@
+import uvicorn
 from fastapi import FastAPI
-from .core.database import engine, Base
 
 app = FastAPI()
 
-# Создаем все таблицы в базе данных
-Base.metadata.create_all(bind=engine)
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+if __name__ == '__main__':
+    uvicorn.run('main:app', reload=True)
