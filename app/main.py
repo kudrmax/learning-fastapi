@@ -1,21 +1,15 @@
 import uvicorn
-from fastapi import FastAPI, Path
-from typing import Annotated
+from fastapi import FastAPI
+
+from items_views import router as items_router
 
 app = FastAPI()
+app.include_router(items_router)
 
 
 @app.get("/")
 def root():
     return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def get_item_by_id(item_id: Annotated[int, Path(ge=1)]):
-    return {
-        'best_name': 'Max',
-        "item_id": item_id
-    }
 
 
 if __name__ == "__main__":
