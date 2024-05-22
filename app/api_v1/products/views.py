@@ -3,6 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from models import db_helper
 from . import crud
+from .dependencies import get_product_by_id
 from .schemas import Product, ProductCreate
 
 router = APIRouter(tags=["products"])
@@ -25,13 +26,28 @@ async def create_product(
 
 @router.get('/{product_id}', response_model=Product)
 async def get_product(
+        product: Product = Depends(get_product_by_id),
+        # @todo почему мы используем dependencies, чем это лучше просто функции, что это за паттер и т.д.?
+):
+    """
+    Раньше было так:
+    async def get_product(
         product_id: int,
         session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+    ):
+        product = await crud.get_product(session=session, product_id=product_id)
+        if product:
+            return product
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Product {product_id} not found",
+        )
+    """
+    return product
+
+
+@router.put('/{product_id}')
+async def update_product(
+
 ):
-    product = await crud.get_product(session=session, product_id=product_id)
-    if product:
-        return product
-    raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND,
-        detail=f"Product {product_id} not found",
-    )
+    pass
