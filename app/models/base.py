@@ -9,6 +9,6 @@ class Base(DeclarativeBase):
         """
         Вместо того чтобы каждый раз создавать имя таблицы вручную, мы будем делать это автоматически
         """
-        return f'{cls.__name__.lower()}s'
+        return f"{cls.__name__.lower()}s"
 
     id: Mapped[int] = mapped_column(primary_key=True)
