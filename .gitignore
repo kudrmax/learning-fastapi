@@ -5,3 +5,5 @@ app/*/*/__pycache__
 app/*/*/*/ __pycache__
 app/.DS_Store
 .DS_Store
+alembic/__pycache__
+alembic/versions/__pycache__
