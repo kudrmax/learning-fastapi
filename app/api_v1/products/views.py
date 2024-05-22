@@ -53,5 +53,12 @@ async def update_product(
         product: Product = Depends(get_product_by_id),
         session: AsyncSession = Depends(db_helper.scoped_session_dependency),
 ):
-    return await crud.update_product(session=session, product=product, product_update=product_update,
-                                     is_partial=is_partial)
+    return await crud.update_product(session=session, product=product, product_update=product_update, is_partial=is_partial)
+
+
+@router.delete('/{product_id}', status_code=status.HTTP_204_NO_CONTENT)
+async def delete_product(
+        product: Product = Depends(get_product_by_id),
+        session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+) -> None:
+    await crud.delete_product(session=session, product=product)
