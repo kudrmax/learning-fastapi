@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class ProductBase(BaseModel):
@@ -7,8 +7,10 @@ class ProductBase(BaseModel):
     price: str
 
 
-class Product(ProductBase):
-    id: int
-
 class ProductCreate(ProductBase):
     pass
+
+
+class Product(ProductBase):
+    model_config = ConfigDict(from_attributes=True)  # @todo что это
+    id: int
