@@ -10,6 +10,8 @@ from api_v1 import router as router_v1
 from items_views import router as items_router
 from users.views import router as users_router
 
+from api_v1.products.views import get_product_by_id
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
