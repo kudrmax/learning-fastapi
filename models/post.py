@@ -1,7 +1,11 @@
+from typing import TYPE_CHECKING
 from sqlalchemy import String, Text, ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base
+
+if TYPE_CHECKING:
+    from .user import User
 
 
 class Post(Base):
@@ -15,5 +19,7 @@ class Post(Base):
     )
 
     user_id: Mapped[int] = mapped_column(
-        ForeignKey('users.id'),
+        ForeignKey("users.id"),
     )
+
+    user: Mapped['User'] = relationship(back_populates='posts') # @todo зачем нужна эта связь? Почему недостаточно связи через user_id
