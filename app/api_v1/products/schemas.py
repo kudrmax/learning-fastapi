@@ -3,7 +3,7 @@ from pydantic import BaseModel, ConfigDict
 
 class ProductBase(BaseModel):
     name: str
-    price: str
+    price: int
 
 
 class ProductCreate(ProductBase):
