@@ -20,7 +20,7 @@ class DataBaseHelper:
     def get_scoped_session(self):
         session = async_scoped_session(
             session_factory=self.session_factory,
-            scoped_session=current_task,  # @todo ???
+            scopefunc=current_task  # @todo ???
         )
         return session
 
@@ -28,6 +28,11 @@ class DataBaseHelper:
         async with self.session_factory() as session:
             yield session
             await session.close()
+
+    async def scoped_session_dependency(self) -> AsyncSession:
+        session = self.get_scoped_session()
+        yield session
+        await session.close()
 
 
 db_helper = DataBaseHelper(url=settings.db_url, echo=settings.db_echo)
